@@ -9,8 +9,8 @@ import (
 )
 
 //export add
-func add(a, b int) int {
-	return a + b
+func add(a, b C.int) C.int {
+	return C.int(int(a) + int(b))
 }
 
 //export md5sum

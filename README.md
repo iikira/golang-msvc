@@ -74,5 +74,5 @@ cmake --install out --config Debug
 ```
 hello
 add(1, 3) = 4
-md5("hello world") = 5eb63bbbe01eeed093cb22bb8f5acdc3
+md5sum("hello world") = 5eb63bbbe01eeed093cb22bb8f5acdc3
 ```
