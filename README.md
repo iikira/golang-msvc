@@ -70,7 +70,7 @@ typedef _Dcomplex GoComplex128;
 sed -i "s/__SIZE_TYPE__/size_t/g" ./call_capi/libcapi/libcapi.h
 sed -i "s/float\ _Complex/_Fcomplex/g" ./call_capi/libcapi/libcapi.h
 sed -i "s/double\ _Complex/_Dcomplex/g" ./call_capi/libcapi/libcapi.h
-sed -i "/GoComplex64/i #include\ <complex.h>" ./call_capi/libcapi/libcapi.h
+sed -i "/_Fcomplex\ GoComplex64/i #include\ <complex.h>" ./call_capi/libcapi/libcapi.h
 ```
 
 ## 编译 call_capi
