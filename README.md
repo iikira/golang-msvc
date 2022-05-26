@@ -9,12 +9,15 @@ libcapi.def: MSVC的模块定义文件, 用于编写导出的方法, 格式如�
 ```def
 EXPORTS
     add
+    go_complex64
+    go_complex128
+    complex64_add
+    complex128_add
     md5sum
 ```
 
 ## call_capi
-c++调用golang的capi示例, 调用 golang 导出 capi 的 add 和 md5sum 方法
-
+c++调用golang的capi示例, 调用 golang 导出 capi 的 add, md5sum 和复数相关的方法
 
 # 步骤
 ## go 编译生成 dll
@@ -85,4 +88,6 @@ cmake --install out --config Debug
 hello
 add(1, 3) = 4
 md5sum("hello world") = 5eb63bbbe01eeed093cb22bb8f5acdc3
+complex64_add(7+2i, 4+5i) = 11.000000+7.000000i
+complex128_add(-1+3i, 3+4i) = 2.000000+7.000000i
 ```

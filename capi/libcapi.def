@@ -1,3 +1,7 @@
 EXPORTS
     add
+    go_complex64
+    go_complex128
+    complex64_add
+    complex128_add
     md5sum
