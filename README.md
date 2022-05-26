@@ -17,16 +17,26 @@ c++调用golang的capi示例, 调用 golang 导出 capi 的 add 和 md5sum 方�
 
 
 # 步骤
-## go 编译 c-archive
+## go 编译生成 dll
+有两种方法可实现
+
+### 方法1: go 编译 c-archive, 再生成 dll
+#### go 编译 c-archive
 编译输出到 call_capi 项目的 libcapi/libcapi.a, 同时包含头文件 libcapi/libcapi.h
 ```sh
 go build -buildmode=c-archive -ldflags "-s -w" -o ./call_capi/libcapi/libcapi.a ./capi
 ```
 
-## 生成 dll
+#### 生成 dll
 使用 MinGW 的 gcc, 根据 capi/libcapi.def 将 libcapi/libcapi.a 转换为 libcapi/libcapi.dll
 ```sh
 gcc ./capi/libcapi.def ./call_capi/libcapi/libcapi.a -shared -lwinmm -lWs2_32 -o ./call_capi/libcapi/libcapi.dll
+```
+
+### 方法2: go 编译 c-shared, 直接生成 dll
+编译输出到 call_capi 项目的 libcapi/libcapi.dll, 同时包含头文件 libcapi/libcapi.h
+```sh
+go build -buildmode=c-shared -ldflags "-s -w" -o ./call_capi/libcapi/libcapi.dll ./capi
 ```
 
 ## 生成 MSVC 支持的 lib

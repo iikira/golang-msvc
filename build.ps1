@@ -1,6 +1,17 @@
-go build -buildmode=c-archive -ldflags "-s -w" -o ./call_capi/libcapi/libcapi.a ./capi
+param($mode)
 
-gcc ./capi/libcapi.def ./call_capi/libcapi/libcapi.a -shared -lwinmm -lWs2_32 -o ./call_capi/libcapi/libcapi.dll
+if ([String]::IsNullOrEmpty($mode)) {
+    Write-Output "mode not set, using 's'"
+    $mode = "s"
+}
+
+if ($mode -eq "a") {
+    go build -buildmode=c-archive -ldflags "-s -w" -o ./call_capi/libcapi/libcapi.a ./capi
+    gcc ./capi/libcapi.def ./call_capi/libcapi/libcapi.a -shared -lwinmm -lWs2_32 -o ./call_capi/libcapi/libcapi.dll
+}
+elseif ($mode -eq "s") {
+    go build -buildmode=c-shared -ldflags "-s -w" -o ./call_capi/libcapi/libcapi.dll ./capi
+}
 
 lib /def:./capi/libcapi.def /name:libcapi.dll /out:./call_capi/libcapi/libcapi.lib /MACHINE:X64
 
