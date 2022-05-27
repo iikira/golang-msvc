@@ -7,20 +7,29 @@ set(PROJECT_SOURCES
         )
 
 add_executable(call_capi
-                ${PROJECT_SOURCES}
-                )
-
-target_include_directories(call_capi
-        PRIVATE
-        libcapi
+        ${PROJECT_SOURCES}
         )
 
-target_link_libraries(call_capi
-        PRIVATE
-        ${CMAKE_SOURCE_DIR}/libcapi/libcapi.lib
-        )
+if (MSVC)
+    target_link_libraries(call_capi
+            PRIVATE
+            ${CMAKE_SOURCE_DIR}/libcapi/libcapi.lib
+            )
+else ()
+    # gcc
+    target_link_directories(call_capi
+            PRIVATE
+            ${CMAKE_SOURCE_DIR}/libcapi
+            )
+    target_link_libraries(call_capi
+            PRIVATE
+            capi
+            )
+endif ()
 
+if (MSVC)
 install(TARGETS call_capi
         RUNTIME DESTINATION .)
 install(FILES ${CMAKE_SOURCE_DIR}/libcapi/libcapi.dll
         DESTINATION .)
+endif()
